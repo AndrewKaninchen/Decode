@@ -12,20 +12,14 @@ namespace Decode
         public int size;
         public float spacing;
 
-        public Dictionary<(int x, int y), TileView> tiles = new Dictionary<(int x, int y), TileView>();
+        public Dictionary<Position, TileView> tiles = new Dictionary<Position, TileView>();
 
         [SerializeField] private List<TileView> _tiles = new List<TileView>();
         private Vector2 center;
 
-        public Vector3 Position((int x, int y) pos)
+        public Vector3 Position(Position pos)
         {
-            var (x, y) = pos;
-            return Position(x, y);
-        }
-
-        public Vector3 Position(int i, int j)
-        {
-            return new Vector3((1 + spacing) * i - center.x, 0f, (1 + spacing) * j - center.y);
+            return new Vector3((1 + spacing) * pos.x - center.x, 0f, (1 + spacing) * pos.y - center.y);
         }
 
         public void Start()
@@ -47,8 +41,9 @@ namespace Decode
                     var go = Instantiate(cubePrefab, transform);
                     var tile = go.GetComponent<TileView>();
                     print(tile);
-                    tile.position = (i, j);
+                    tile.position = new Position(i, j);
                     tiles.Add(tile.position, tile);
+                    tile.backend = new Tile();
                 }
             }
             OnValidate();

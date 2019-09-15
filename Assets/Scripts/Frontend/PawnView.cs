@@ -13,12 +13,10 @@ namespace Decode
         [FormerlySerializedAs("pawnType")] public Pawn pawnAsset;
         [NonSerialized] public Pawn pawn;
         
-        public async Task Move((int x, int y) targetPosition)
+        public async Task Move(Position targetPosition)
         {
             var boardView = FindObjectOfType<BoardView>();
             await transform.DOMove(boardView.Position(targetPosition), .2f).IsComplete();
-            pawn.position = (targetPosition.x, targetPosition.y);
-            //chamar evento de movimento terminado
         }
         
         public async Task HitThing(Pawn target)//, Func<Task> effect)
