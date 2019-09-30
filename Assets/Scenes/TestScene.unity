@@ -768,6 +768,16 @@ PrefabInstance:
       propertyPath: position.y
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 3206141201184066827, guid: 25d43329201965748b284baf63e8b292,
+        type: 3}
+      propertyPath: position.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3206141201184066827, guid: 25d43329201965748b284baf63e8b292,
+        type: 3}
+      propertyPath: position.y
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4186819794854969914, guid: 25d43329201965748b284baf63e8b292, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 25d43329201965748b284baf63e8b292, type: 3}
