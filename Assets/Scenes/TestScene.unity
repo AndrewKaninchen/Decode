@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 2138677392}
-  m_IndirectSpecularColor: {r: 0.17276813, g: 0.21589185, b: 0.29782563, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589245, b: 0.2978263, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -130,8 +130,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 35183266}
-  - component: {fileID: 35183267}
   - component: {fileID: 35183268}
+  - component: {fileID: 35183267}
   m_Layer: 0
   m_Name: --Game--
   m_TagString: Untagged
@@ -163,13 +163,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 35183265}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a100b258a676b7b499eaf68fe78a632b, type: 3}
+  m_Script: {fileID: 11500000, guid: 6ecf0ebea8c2d5047b124be7395bb047, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pawnsRoot: {fileID: 1334584879}
-  boardView: {fileID: 573287419}
+  HasEnded: 0
+  board: {fileID: 573287419}
+  Pawns: []
+  CurrentPlayerId: 0
 --- !u!114 &35183268
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -390,7 +392,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4186819794854969914, guid: cf20f8336d7a0bd4fad44fe7db3cc802, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: cf20f8336d7a0bd4fad44fe7db3cc802, type: 3}
 --- !u!4 &278746272 stripped
 Transform:
@@ -755,7 +758,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 1148267843526323307, guid: 25d43329201965748b284baf63e8b292,
+        type: 3}
+      propertyPath: position.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1148267843526323307, guid: 25d43329201965748b284baf63e8b292,
+        type: 3}
+      propertyPath: position.y
+      value: 4
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 4186819794854969914, guid: 25d43329201965748b284baf63e8b292, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 25d43329201965748b284baf63e8b292, type: 3}
 --- !u!4 &607098504 stripped
 Transform:
@@ -1340,6 +1354,25 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2614609626550551948}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1728817349 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1745582479492351609, guid: 25d43329201965748b284baf63e8b292,
+    type: 3}
+  m_PrefabInstance: {fileID: 607098503}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &1728817350
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1728817349}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1865191223
 GameObject:
   m_ObjectHideFlags: 0
@@ -1879,10 +1912,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5521073808777289106}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6917f3f8f211458abef623014335c340, type: 3}
+  m_Script: {fileID: 11500000, guid: 249867cb97e2448c8e69a354b21db30b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pawnAsset: {fileID: 0}
+  position:
+    x: 0
+    y: 0
+  pawnAsset: {fileID: 5521073808777289107}
 --- !u!54 &5521073808777289110
 Rigidbody:
   m_ObjectHideFlags: 0
