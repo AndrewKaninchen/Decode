@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Asyncoroutine;
@@ -9,6 +10,7 @@ namespace Decode
 {
     public class GameController : MonoBehaviour
     {
+        public bool HasStarted = false;
         public bool HasEnded;
         public Board board;
         public List<Player> Players;
@@ -17,17 +19,18 @@ namespace Decode
 
         public static GameController Instance { get; private set; }
 
-        public void Initialize(List<Player> players, List<Pawn> pawns)
-        {
-            HasEnded = false;
-            if (Players == null) Players = new List<Player>{new HumanPlayer(), new AIPlayer()};
-            CurrentPlayerId = 0;
-            Instance = this;
-            Pawns = pawns;
-        }
+//        public void Initialize(List<Player> players, List<Pawn> pawns)
+//        {
+//            HasEnded = false;
+//            if (Players == null) Players = new List<Player>{new HumanPlayer(), new AIPlayer()};
+//            CurrentPlayerId = 0;
+//            Instance = this;
+//            Pawns = pawns;
+//        }
         
         public async void Run()
         {
+            print("Game Started!");
             while (!HasEnded)
             {
                 await Turn(Players[CurrentPlayerId]);
@@ -38,12 +41,19 @@ namespace Decode
 
         public async Task Turn(Player player)
         {
+            print($"Player {Players.FindIndex((x)=> x == player)} Turn");
+            await player.Play();
         }
-        
-        private void Start()
+
+        private void Update()
         {
-            Initialize(null, null);
-            Task.Run(Run);
+            if (!HasStarted && Input.GetKeyDown(KeyCode.Backspace))
+            {
+                HasStarted = true;
+                Instance = this;
+                //Initialize(Players, Pawns);
+                Run();
+            }
         }
     }
 }

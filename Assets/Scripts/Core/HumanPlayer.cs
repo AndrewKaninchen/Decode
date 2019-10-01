@@ -1,12 +1,31 @@
+using System;
 using System.Threading.Tasks;
+using UnityEngine.UI;
 
 namespace Decode
 {
 	public class HumanPlayer : Player
 	{
-		public override Task Play()
+		public Button endTurnButton;
+		private TaskCompletionSource<int> endTurnCompletionSource;
+
+		private void Start()
 		{
-			return null;
+		}
+
+		public void OnEndTurnButtonPressed()
+		{
+			endTurnCompletionSource.SetResult(0); 
+			endTurnButton.onClick.RemoveListener(OnEndTurnButtonPressed);
+			endTurnButton.gameObject.SetActive(false);
+		}
+
+		public override async Task Play()
+		{
+			endTurnButton.gameObject.SetActive(true);
+			endTurnCompletionSource = new TaskCompletionSource<int>();
+			endTurnButton.onClick.AddListener(OnEndTurnButtonPressed);
+			await endTurnCompletionSource.Task;
 		}
 	}
 }

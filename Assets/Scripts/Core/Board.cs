@@ -32,7 +32,7 @@ namespace Decode
             if (Input.GetKeyDown(KeyCode.Space))
                 CreateCubes();
         }
-
+        
         public void CreateCubes()
         {
             for (int i = 0; i < size; i++)
@@ -41,9 +41,10 @@ namespace Decode
                 {
                     var go = Instantiate(cubePrefab, transform);
                     var tile = go.GetComponent<Tile>();
-                    print(tile);
+                    //print(tile);
                     tile.position = new Position(i, j);
                     tiles.Add(tile.position, tile);
+                    _tiles.Add(tile);
                 }
             }
             OnValidate();
@@ -55,12 +56,13 @@ namespace Decode
 
             foreach (var tile in tiles)
             {
-                tile.Value.transform.localPosition = PositionToWorldSpace(tile.Key);
+                tile.Value.transform.position = PositionToWorldSpace(tile.Key);
             }
         }
 
         public void OnBeforeSerialize()
         {
+            
         }
 
         public void OnAfterDeserialize()

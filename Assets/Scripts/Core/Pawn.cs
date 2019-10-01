@@ -16,8 +16,8 @@ namespace Decode
         
         public async Task Move(Position targetPosition)
         {
-            var boardView = FindObjectOfType<Board>();
-            await transform.DOMove(boardView.PositionToWorldSpace(targetPosition), .2f).IsComplete();
+            var board = GameController.Instance.board;
+            await transform.DOMove(targetPosition.ToWorldSpace, .2f).IsComplete();
             this.position = targetPosition;
 
         }
@@ -38,16 +38,22 @@ namespace Decode
         {
             var originalPos = transform.position;
             await transform.DOShakePosition(.3f, .1f).IsComplete();
+            await Die();
         }
-        
+
+        public async Task Die()
+        {
+            await transform.DOScale(0f, .05f).IsComplete();
+        }
+
+        private void Start()
+        {
+            transform.DOMove(position.ToWorldSpace, 0.01f);
+        }
+
         protected virtual void Initialize(Position position)
         {
             this.position = position;
         }
-    }
-
-    public class Goomba : Pawn
-    {
-        public int direction;
     }
 }

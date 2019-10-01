@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Decode
 {
@@ -33,10 +34,16 @@ namespace Decode
 					var pos = new Position(pawn.position.x + dir.x, pawn.position.y + dir.y);
 
 					if (GameController.Instance.board.tiles.ContainsKey(pos))
+					{
 						await pawn.Move(pos);
+					}
 					else
+					{
 						pawn.direction = (pawn.direction + 2) % 4;
-
+						var mpos = new Position(pawn.position.x - dir.x, pawn.position.y - dir.y);
+						await pawn.Move(mpos);
+						Debug.Log("viradona");
+					}
 				}
 			}
 		}
