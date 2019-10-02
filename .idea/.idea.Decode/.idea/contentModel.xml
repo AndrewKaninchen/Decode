@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\KonViction\.Rider2019.1\config\extensions" t="IncludeRecursive" />
-    <e p="C:\Users\KonViction\.Rider2019.1\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\KonViction\.Rider2019.1\system\resharper-host\local\Transient\ReSharperHost\v191\SolutionCaches\_Decode.-881620001.00" t="ExcludeRecursive" />
-    <e p="C:\Users\KonViction\RiderProjects\Decode" t="IncludeRecursive">
+    <e p="C:\Users\Kon-Viction\.Rider2019.2\config\scratches" t="IncludeRecursive" />
+    <e p="C:\Users\Kon-Viction\.Rider2019.2\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\Kon-Viction\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_Decode.1502702426.00" t="ExcludeRecursive" />
+    <e p="C:\Users\Kon-Viction\RiderProjects\Decode" t="IncludeRecursive">
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
