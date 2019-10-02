@@ -10,8 +10,11 @@ public class Cursor : MonoBehaviour
     public Pawn playerPawn;
     //public BoardView boardView;
     
-    private void Update()
+    private async void Update()
     {
+        if (!GameController.Instance.HasStarted || GameController.Instance.HasEnded)
+            return;
+        
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         Tile hoveredTile = null;
         if (Physics.Raycast(ray, out var hit))
@@ -33,7 +36,9 @@ public class Cursor : MonoBehaviour
                 {
                     if (Input.GetMouseButtonDown(0))
                     {
-                        playerPawn.Move(hoveredTile.position);
+                        await playerPawn.Move(hoveredTile.position);
+                        var p = GameController.Instance.Players[1] as HumanPlayer;
+                        p.EndTurn();
                     }
                     else
                     {
@@ -44,7 +49,7 @@ public class Cursor : MonoBehaviour
             else if (pawn)
             {
                 if(Input.GetMouseButtonDown(0))
-                    playerPawn.HitThing(pawn);
+                    playerPawn.Attack(pawn);
             }
         }
         

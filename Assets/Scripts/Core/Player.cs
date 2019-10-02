@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -9,5 +10,15 @@ namespace Decode
 		public List<Pawn> Pawns;
 
 		public abstract Task Play();
+
+		private void OnValidate()
+		{
+			var toRemove = new List<int>();
+			for (int i = 0; i < Pawns.Count; i++)
+			{
+				Pawns.RemoveAt(i);
+				i--;
+			}
+		}
 	}
 }
