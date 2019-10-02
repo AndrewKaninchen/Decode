@@ -25,12 +25,7 @@ namespace Decode
 
         public void Start()
         {
-        }
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-                CreateCubes();
+            CreateCubes();
         }
         
         public void CreateCubes()

@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Decode
@@ -13,6 +14,19 @@ namespace Decode
 		{
 		}
 
+		private void Update()
+		{
+			if (Input.GetKeyDown(KeyCode.Space))
+			{
+				EndTurn();
+			}
+		}
+
+		public void EndTurn()
+		{
+			endTurnCompletionSource?.TrySetResult(0);
+		}
+		
 		public void OnEndTurnButtonPressed()
 		{
 			endTurnCompletionSource.SetResult(0); 
@@ -22,9 +36,9 @@ namespace Decode
 
 		public override async Task Play()
 		{
-			endTurnButton.gameObject.SetActive(true);
+//			endTurnButton.gameObject.SetActive(true);
 			endTurnCompletionSource = new TaskCompletionSource<int>();
-			endTurnButton.onClick.AddListener(OnEndTurnButtonPressed);
+//			endTurnButton.onClick.AddListener(OnEndTurnButtonPressed);
 			await endTurnCompletionSource.Task;
 		}
 	}

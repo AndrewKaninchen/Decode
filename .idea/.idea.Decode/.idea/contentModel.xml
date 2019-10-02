@@ -40,16 +40,20 @@
             <e p="Board.cs" t="Include" />
             <e p="DOTweenExtensions.cs" t="Include" />
             <e p="GameController.cs" t="Include" />
+            <e p="Hacker.cs" t="Include" />
             <e p="HumanPlayer.cs" t="Include" />
             <e p="Pawn.cs" t="Include" />
             <e p="Player.cs" t="Include" />
             <e p="Position.cs" t="Include" />
+            <e p="SimpleEnemy.cs" t="Include" />
+            <e p="StageGoal.cs" t="Include" />
             <e p="Tile.cs" t="Include" />
           </e>
           <e p="Editor" t="Include">
             <e p="BoardEditor.cs" t="Include" />
           </e>
           <e p="Enemies" t="Include">
+            <e p="EnemyPawn.cs" t="Include" />
             <e p="Goomba.cs" t="Include" />
           </e>
         </e>
