@@ -88,6 +88,20 @@
             <e p="EmojiOne Attribution.txt" t="Include" />
           </e>
         </e>
+        <e p="Textus" t="Include">
+          <e p="TextusEngine" t="Include">
+            <e p="Core" t="Include">
+              <e p="RuntimTiledPrefab" t="Include">
+                <e p="Editor" t="Include">
+                  <e p="PrefabTilemapEditor.cs" t="Include" />
+                </e>
+                <e p="PrefabTile.cs" t="Include" />
+                <e p="PrefabTilemap.cs" t="Include" />
+                <e p="Readmy.txt" t="Include" />
+              </e>
+            </e>
+          </e>
+        </e>
       </e>
       <e p="Decode.sln" t="IncludeFlat" />
       <e p="obj" t="ExcludeRecursive" />

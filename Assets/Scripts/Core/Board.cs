@@ -58,10 +58,10 @@ namespace Decode
             RecalculateTilePositions();
         }
 
-        private void OnValidate()
-        {
-            RecalculateTilePositions();
-        }
+//        private void OnValidate()
+//        {
+//            RecalculateTilePositions();
+//        }
 
         private void RecalculateTilePositions()
         {

@@ -26,7 +26,7 @@ namespace Decode
             {
                 foreach (var pawn in player.Pawns)
                 {
-                    if (!pawn.transform.hasChanged) return;
+                    if (!pawn || !pawn.transform.hasChanged) return;
 
                     var pos = board.WorldSpaceToPosition(pawn.transform.position);
                     pawn.position = pos;

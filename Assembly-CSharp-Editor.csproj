@@ -60,6 +60,7 @@
      <Compile Include="Assets\Scripts\Editor\DecodeEditor.cs" />
      <Compile Include="Assets\Scripts\Editor\HackerEditor.cs" />
      <Compile Include="Assets\Scripts\Editor\PawnEditor.cs" />
+     <Compile Include="Assets\Textus\TextusEngine\Core\RuntimTiledPrefab\Editor\PrefabTilemapEditor.cs" />
  <Reference Include="UnityEditor.TestRunner">
  <HintPath>C:/Users/Kon-Viction/RiderProjects/Decode/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
  </Reference>
