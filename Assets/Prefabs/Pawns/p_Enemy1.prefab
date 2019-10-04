@@ -27,8 +27,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   owner: 0
   position:
-    x: 1
-    y: 5
+    x: 3
+    y: 3
 --- !u!1 &6242844101299339042
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,10 +196,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1803475424414653072, guid: f99e7c86cef7cca4a9be87d80c1f04d3,
+        type: 3}
+      propertyPath: m_Name
+      value: p_Enemy1
+      objectReference: {fileID: 0}
     - target: {fileID: 1803475424414653076, guid: f99e7c86cef7cca4a9be87d80c1f04d3,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.95
+      value: -1.65
       objectReference: {fileID: 0}
     - target: {fileID: 1803475424414653076, guid: f99e7c86cef7cca4a9be87d80c1f04d3,
         type: 3}
@@ -209,7 +214,7 @@ PrefabInstance:
     - target: {fileID: 1803475424414653076, guid: f99e7c86cef7cca4a9be87d80c1f04d3,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.65
+      value: -1.65
       objectReference: {fileID: 0}
     - target: {fileID: 1803475424414653076, guid: f99e7c86cef7cca4a9be87d80c1f04d3,
         type: 3}
@@ -265,11 +270,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1803475424414653072, guid: f99e7c86cef7cca4a9be87d80c1f04d3,
-        type: 3}
-      propertyPath: m_Name
-      value: p_Enemy1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f99e7c86cef7cca4a9be87d80c1f04d3, type: 3}

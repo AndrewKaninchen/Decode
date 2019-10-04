@@ -23,13 +23,26 @@ namespace Decode
             return new Vector3((1 + spacing) * pos.x - center.x, 0f, (1 + spacing) * pos.y - center.y);
         }
 
-        public void Start()
+        public Position WorldSpaceToPosition(Vector3 pos)
         {
-            CreateCubes();
+            return new Position( (int) ((pos.x + center.x)/ (1+spacing) ), (int) ((pos.z + center.y)/ (1+spacing) ));
         }
         
-        public void CreateCubes()
+        public void Start()
         {
+            GenerateTiles();
+        }
+
+        public void ClearTiles()
+        {
+            foreach (var tile in tiles.Values)
+                DestroyImmediate(tile.gameObject);
+
+            tiles.Clear();
+        }
+        public void GenerateTiles()
+        {
+            ClearTiles();            
             for (int i = 0; i < size; i++)
             {
                 for (int j = 0; j < size; j++)
@@ -39,25 +52,34 @@ namespace Decode
                     //print(tile);
                     tile.position = new Position(i, j);
                     tiles.Add(tile.position, tile);
-                    _tiles.Add(tile);
                 }
             }
-            OnValidate();
+            
+            RecalculateTilePositions();
         }
 
         private void OnValidate()
+        {
+            RecalculateTilePositions();
+        }
+
+        private void RecalculateTilePositions()
         {
             center = (size / 2f) * (1 + spacing) * Vector2.one;
 
             foreach (var tile in tiles)
             {
-                tile.Value.transform.position = PositionToWorldSpace(tile.Key);
+                var pos = PositionToWorldSpace(tile.Key);
+                tile.Value.transform.position = pos;
+                if (tile.Value.pawn != null)
+                    tile.Value.pawn.transform.position = pos;
             }
         }
 
         public void OnBeforeSerialize()
         {
-            
+            _tiles.Clear();
+            _tiles.AddRange(tiles.Values);
         }
 
         public void OnAfterDeserialize()

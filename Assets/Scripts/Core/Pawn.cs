@@ -14,14 +14,13 @@ namespace Decode
         
         public Direction Direction { get; private set; }
         
-
         public async Task ChangeDirection(Direction direction)
         {
             Direction = direction;
             await transform.DORotate(90f * (int)direction * Vector3.up, .1f).IsComplete();
         }
         
-        public async virtual Task Move(Position targetPosition)
+        public virtual async Task Move(Position targetPosition)
         {
             var board = GameController.Instance.board;
             board.tiles[position].pawn = null;
@@ -50,7 +49,7 @@ namespace Decode
             await Die();
         }
 
-        public async virtual Task Die()
+        public virtual async Task Die()
         {
             await transform.DOScale(0f, .05f).IsComplete();
             GameController.Instance.Players[owner].Pawns.Remove(this);

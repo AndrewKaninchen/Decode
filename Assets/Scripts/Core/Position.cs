@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Decode
 {
@@ -14,6 +15,7 @@ namespace Decode
 			this.y = y;
 		}
 
-		public Vector3 ToWorldSpace => GameController.Instance.board.PositionToWorldSpace(this);
+
+		public Vector3 ToWorldSpace => Object.FindObjectOfType<Board>().PositionToWorldSpace(this);
 	}
 }

@@ -188,7 +188,7 @@ MonoBehaviour:
   owner: 0
   position:
     x: 3
-    y: 4
+    y: 3
 --- !u!1001 &89708413384678633
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -196,6 +196,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1803475424414653072, guid: f99e7c86cef7cca4a9be87d80c1f04d3,
+        type: 3}
+      propertyPath: m_Name
+      value: p_Enemy2
+      objectReference: {fileID: 0}
     - target: {fileID: 1803475424414653076, guid: f99e7c86cef7cca4a9be87d80c1f04d3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -209,7 +214,7 @@ PrefabInstance:
     - target: {fileID: 1803475424414653076, guid: f99e7c86cef7cca4a9be87d80c1f04d3,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -1.65
       objectReference: {fileID: 0}
     - target: {fileID: 1803475424414653076, guid: f99e7c86cef7cca4a9be87d80c1f04d3,
         type: 3}
@@ -265,11 +270,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1803475424414653072, guid: f99e7c86cef7cca4a9be87d80c1f04d3,
-        type: 3}
-      propertyPath: m_Name
-      value: p_Goomba
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f99e7c86cef7cca4a9be87d80c1f04d3, type: 3}
