@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using Decode;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -9,6 +10,7 @@ using UnityEngine.Tilemaps;
 public class PrefabTilemap : MonoBehaviour, ISerializationCallbackReceiver
 {
     public Tilemap map;
+    public Grid grid;
     public Dictionary<Vector3Int, GameObject> tileDictionary = new Dictionary<Vector3Int, GameObject>();
     [SerializeField] private List<GameObject> _tiles = new List<GameObject>();
     [SerializeField] private List<Vector3Int> _tilePositions = new List<Vector3Int>();
@@ -17,17 +19,23 @@ public class PrefabTilemap : MonoBehaviour, ISerializationCallbackReceiver
     {
         if (map.HasTile(position))
         {
-            var tile = map.GetTile(position);
-            var prefabTile = tile as PrefabTile;
+            var prefabTile = map.GetTile(position) as PrefabTile;
+            
             if (prefabTile != null)
             {
                 if (!tileDictionary.ContainsKey(position))
                 {
-                    var instance = Instantiate(prefabTile.Prefab,
+                    var instance = Instantiate(prefabTile.prefab,
                         parent: transform,
-                        position: new Vector3(position.x + .5f, 0f, position.y + .5f),
+                        position: grid.CellToWorld(position) + new Vector3(.5f, 0f, .5f),
                         rotation: Quaternion.identity);
                     tileDictionary.Add(position, instance);
+                    instance.GetComponent<Decode.Tile>().position = new Position(position.x, position.y);
+                }
+                else
+                {
+                    tileDictionary[position].transform.position =
+                        grid.CellToWorld(position) + new Vector3(.5f, 0f, .5f);
                 }
             }
         }

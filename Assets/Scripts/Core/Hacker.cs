@@ -1,7 +1,11 @@
+using System;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Decode
 {
+	
+	[SelectionBase]
 	public class Hacker : Pawn
 	{
 		public override async Task Die()
@@ -16,7 +20,16 @@ namespace Decode
 			await base.Move(targetPosition);
 			if (win)
 				GameController.Instance.StageClear();
+		}
+
+		private void OnValidate()
+		{
+			if (!gameObject.scene.IsValid()) return;
+			var humanPlayer = FindObjectOfType<HumanPlayer>();
+			if (humanPlayer == null) return;
 			
+			if (!humanPlayer.Pawns.Contains(this))
+				humanPlayer.Pawns.Add(this);
 		}
 	}
 }

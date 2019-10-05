@@ -2,12 +2,14 @@
 
  using UnityEditor;
  using UnityEngine;
-using UnityEngine.Tilemaps;
+ using UnityEngine.Serialization;
+ using UnityEngine.Tilemaps;
 
 [CreateAssetMenu(menuName = "TiledPrefab" ,fileName = "TiledPrefab", order = 360)]
 public class PrefabTile : TileBase
 {
-    public GameObject Prefab;
+    [FormerlySerializedAs("Prefab")]public GameObject prefab;
+    [FormerlySerializedAs("TilemapName")] public string tilemapName;
 //    public Vector3 PrefabOffset = new Vector3(0.5f,0.5f,0);
 
     public override void RefreshTile(Vector3Int position, ITilemap tilemap)
@@ -25,15 +27,18 @@ public class PrefabTile : TileBase
   
     public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData)
     {
-        var previewTexture = AssetPreview.GetAssetPreview(Prefab);
-        tileData.sprite = Application.isPlaying ? null : 
-            Sprite.Create(
-                previewTexture, 
+        var previewTexture = AssetPreview.GetAssetPreview(prefab);
+        
+        if (tileData.sprite == null && previewTexture != null)
+        {
+            tileData.sprite = Sprite.Create(
+                previewTexture,
                 new Rect(
-                    Vector2.zero, 
-                    .95f* previewTexture.height * Vector2.one), 
-                Vector2.one * .5f, 
+                    Vector2.zero,
+                    .95f * previewTexture.height * Vector2.one),
+                Vector2.one * .5f,
                 previewTexture.width);
+        }
     }
 }
 

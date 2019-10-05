@@ -187,8 +187,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   owner: 0
   position:
-    x: 3
-    y: 3
+    x: 0
+    y: 0
 --- !u!1001 &89708413384678633
 PrefabInstance:
   m_ObjectHideFlags: 0

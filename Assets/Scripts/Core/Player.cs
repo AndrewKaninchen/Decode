@@ -16,8 +16,11 @@ namespace Decode
 			var toRemove = new List<int>();
 			for (int i = 0; i < Pawns.Count; i++)
 			{
-				Pawns.RemoveAt(i);
-				i--;
+				if (Pawns[i] == null)
+				{
+					Pawns.RemoveAt(i);
+					i--;
+				}
 			}
 		}
 	}

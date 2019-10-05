@@ -9,7 +9,6 @@
       <e p="Assembly-CSharp-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
-        <e p="Cursor.cs" t="Include" />
         <e p="Plugins" t="Include">
           <e p="Asyncoroutine" t="Include">
             <e p="Scripts" t="Include">
@@ -49,11 +48,14 @@
             <e p="StageGoal.cs" t="Include" />
             <e p="Tile.cs" t="Include" />
           </e>
+          <e p="Cursor.cs" t="Include" />
           <e p="Editor" t="Include">
             <e p="BoardEditor.cs" t="Include" />
             <e p="DecodeEditor.cs" t="Include" />
             <e p="HackerEditor.cs" t="Include" />
             <e p="PawnEditor.cs" t="Include" />
+            <e p="TestBrush.cs" t="Include" />
+            <e p="TestBrushEditor.cs" t="Include" />
           </e>
           <e p="Enemies" t="Include">
             <e p="EnemyPawn.cs" t="Include" />

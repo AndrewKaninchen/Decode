@@ -4,6 +4,8 @@ using UnityEngine;
 
 namespace Decode
 {
+	
+	[SelectionBase]
 	public class Goomba : EnemyPawn
 	{
 		public override async Task Act()

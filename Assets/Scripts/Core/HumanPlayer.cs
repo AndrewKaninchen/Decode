@@ -7,7 +7,6 @@ namespace Decode
 {
 	public class HumanPlayer : Player
 	{
-		public Button endTurnButton;
 		private TaskCompletionSource<int> endTurnCompletionSource;
 
 		private void Start()
@@ -27,18 +26,9 @@ namespace Decode
 			endTurnCompletionSource?.TrySetResult(0);
 		}
 		
-		public void OnEndTurnButtonPressed()
-		{
-			endTurnCompletionSource.SetResult(0); 
-			endTurnButton.onClick.RemoveListener(OnEndTurnButtonPressed);
-			endTurnButton.gameObject.SetActive(false);
-		}
-
 		public override async Task Play()
 		{
-//			endTurnButton.gameObject.SetActive(true);
 			endTurnCompletionSource = new TaskCompletionSource<int>();
-//			endTurnButton.onClick.AddListener(OnEndTurnButtonPressed);
 			await endTurnCompletionSource.Task;
 		}
 	}

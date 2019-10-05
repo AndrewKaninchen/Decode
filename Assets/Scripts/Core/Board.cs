@@ -1,36 +1,53 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.Tilemaps;
 
 namespace Decode
 {
     public class Board : MonoBehaviour, ISerializationCallbackReceiver
     {
+        public Grid grid;
+        public PrefabTilemap groundTilemap;
+        
         public GameObject cubePrefab;
         public int size;
         public float spacing;
 
-        public Dictionary<Position, Tile> tiles = new Dictionary<Position, Tile>();
+        [NonSerialized] public Dictionary<Position, Tile> tiles = new Dictionary<Position, Tile>();
 
         [SerializeField] private List<Tile> _tiles = new List<Tile>();
         private Vector2 center;
 
         public Vector3 PositionToWorldSpace(Position pos)
         {
-            return new Vector3((1 + spacing) * pos.x - center.x, 0f, (1 + spacing) * pos.y - center.y);
+            return grid.CellToWorld(new Vector3Int(pos.x, pos.y, 0)) + new Vector3(.5f, 0f, .5f);
+//            return new Vector3((1 + spacing) * pos.x - center.x, 0f, (1 + spacing) * pos.y - center.y);
         }
 
         public Position WorldSpaceToPosition(Vector3 pos)
         {
-            return new Position( (int) ((pos.x + center.x)/ (1+spacing) ), (int) ((pos.z + center.y)/ (1+spacing) ));
+            var v3p = grid.WorldToCell(pos);
+            return new Position(v3p.x, v3p.y);
+//            return new Position( (int) ((pos.x + center.x)/ (1+spacing) ), (int) ((pos.z + center.y)/ (1+spacing) ));
         }
         
         public void Start()
         {
-            GenerateTiles();
+            GetTiles();
+//            GenerateTiles();
+        }
+
+        public void GetTiles()
+        {
+            foreach (var tile in groundTilemap.GetComponentsInChildren<Tile>())
+            {
+                tiles.Add(tile.position, tile);
+            }
         }
 
         public void ClearTiles()
