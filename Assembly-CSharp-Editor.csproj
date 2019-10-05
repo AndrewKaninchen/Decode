@@ -58,9 +58,9 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Editor\BoardEditor.cs" />
      <Compile Include="Assets\Scripts\Editor\DecodeEditor.cs" />
+     <Compile Include="Assets\Scripts\Editor\DefaultBrush.cs" />
      <Compile Include="Assets\Scripts\Editor\HackerEditor.cs" />
      <Compile Include="Assets\Scripts\Editor\PawnEditor.cs" />
-     <Compile Include="Assets\Scripts\Editor\TestBrush.cs" />
      <Compile Include="Assets\Scripts\Editor\TestBrushEditor.cs" />
      <Compile Include="Assets\Scripts\PrefabTile\Editor\PrefabTilemapEditor.cs" />
  <Reference Include="UnityEditor.TestRunner">

@@ -6,8 +6,8 @@ using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.Tilemaps;
  
-[CustomGridBrush(false, false, true, "Default Brush")]
-public class TestBrush : GridBrush
+[CustomGridBrush(false, true, true, "Default Brush")]
+public class DefaultBrush : GridBrush
 {
     private Tilemap targetTilemap;
 

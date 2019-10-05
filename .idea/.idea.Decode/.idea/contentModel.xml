@@ -52,9 +52,9 @@
           <e p="Editor" t="Include">
             <e p="BoardEditor.cs" t="Include" />
             <e p="DecodeEditor.cs" t="Include" />
+            <e p="DefaultBrush.cs" t="Include" />
             <e p="HackerEditor.cs" t="Include" />
             <e p="PawnEditor.cs" t="Include" />
-            <e p="TestBrush.cs" t="Include" />
             <e p="TestBrushEditor.cs" t="Include" />
           </e>
           <e p="Enemies" t="Include">
