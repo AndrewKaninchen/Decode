@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Asyncoroutine;
 using UnityEditor.PackageManager;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Decode
 {
@@ -13,32 +14,39 @@ namespace Decode
     {
         public bool HasStarted = false;
         public bool HasEnded;
-        public Board board;
+        [FormerlySerializedAs("board")] public Board Board;
         public List<Player> Players;
         public int CurrentPlayerId;
 
         public GameObject GameOverText;
         public GameObject StageClearText;
-        public StageGoal StageGoal;
+        [HideInInspector] public StageGoal StageGoal;
 
         public static GameController Instance { get; private set; }
         
         public async void Run()
         {
-            print("Game Started!");
-            for (int i = 0; i < Players.Count; i++)
-            {
-                foreach (var pawn in Players[i].Pawns)
-                    pawn.Initialize(i);    
-            }
-            StageGoal.Initialize(-1);
-            
+            Initialize();
+
             while (!HasEnded)
             {
                 await Turn(Players[CurrentPlayerId]);
                 CurrentPlayerId++;
                 CurrentPlayerId %= Players.Count;
             }
+        }
+
+        private void Initialize()
+        {
+            Board.Initialize();
+            print("Game Started!");
+            for (int i = 0; i < Players.Count; i++)
+            {
+                foreach (var pawn in Players[i].Pawns)
+                    pawn.Initialize(this, i);
+            }
+
+            StageGoal.Initialize(this, -1);
         }
 
         public void GameOver()
@@ -61,19 +69,10 @@ namespace Decode
 
         private void Start()
         {
+            if(StageGoal == null) StageGoal = FindObjectOfType<StageGoal>();
             HasStarted = true;
             Instance = this;
             Run();
-        }
-
-        private void Update()
-        {
-            if (!HasStarted && Input.GetKeyDown(KeyCode.Space))
-            {
-                HasStarted = true;
-                Instance = this;
-                Run();
-            }
         }
     }
 }

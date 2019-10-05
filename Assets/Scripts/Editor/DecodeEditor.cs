@@ -30,7 +30,7 @@ namespace Decode
 
                     var pos = board.WorldSpaceToPosition(pawn.transform.position);
                     pawn.position = pos;
-                    pawn.transform.position = pawn.position.ToWorldSpace;
+//                    pawn.transform.position = pawn.position.ToWorldSpace;
                 }
             }
         }            

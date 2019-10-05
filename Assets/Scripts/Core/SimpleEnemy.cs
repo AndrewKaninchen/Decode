@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Decode
 {
@@ -8,12 +9,12 @@ namespace Decode
 		{
 			var dir = Direction.AsVector();
 			
-			var pos = new Position(position.x + dir.x, position.y + dir.y);
-			var board = GameController.Instance.board;
+			var pos = new Vector3Int(position.x + dir.x, position.y + dir.y, 0);
+			var board = GameController.Instance.Board;
 
-			if (board.tiles.ContainsKey(pos))
+			if (board.Tiles.ContainsKey(pos))
 			{
-				var p = board.tiles[pos].pawn;
+				var p = board.Tiles[pos].pawn;
 						
 				if (p != null && p is Hacker)
 				{

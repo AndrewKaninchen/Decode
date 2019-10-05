@@ -2,9 +2,10 @@ using UnityEngine;
 
 namespace Decode
 {
+    [SelectionBase]
     public class Tile : MonoBehaviour
     {
-        public Position position;
+        public Vector3Int position;
         public Pawn pawn;
     }
 }

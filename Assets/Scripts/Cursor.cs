@@ -4,12 +4,18 @@ using System.Collections.Generic;
 using Decode;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 
 public class Cursor : MonoBehaviour
 {
-    public Pawn playerPawn;
+    [HideInInspector] public Pawn hacker;
     //public BoardView boardView;
-    
+
+    private void Start()
+    {
+        if (hacker == null) hacker = FindObjectOfType<Hacker>();
+    }
+
     private async void Update()
     {
         if (!GameController.Instance.HasStarted || GameController.Instance.HasEnded)
@@ -36,7 +42,7 @@ public class Cursor : MonoBehaviour
                 {
                     if (Input.GetMouseButtonDown(0))
                     {
-                        await playerPawn.Move(hoveredTile.position);
+                        await hacker.Move(hoveredTile.position);
                         var p = GameController.Instance.Players[1] as HumanPlayer;
                         p.EndTurn();
                     }
@@ -49,7 +55,7 @@ public class Cursor : MonoBehaviour
             else if (pawn)
             {
                 if(Input.GetMouseButtonDown(0))
-                    playerPawn.Attack(pawn);
+                    hacker.Attack(pawn);
             }
         }
         

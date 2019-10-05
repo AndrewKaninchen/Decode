@@ -4,16 +4,18 @@ using System;
 using System.Collections.Generic;
 using Decode;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
+using Tile = Decode.Tile;
 
 [RequireComponent(typeof(Tilemap))]
 public class PrefabTilemap : MonoBehaviour, ISerializationCallbackReceiver
 {
     public Tilemap map;
     public Grid grid;
-    public Dictionary<Vector3Int, GameObject> tileDictionary = new Dictionary<Vector3Int, GameObject>();
-    [SerializeField] private List<GameObject> _tiles = new List<GameObject>();
-    [SerializeField] private List<Vector3Int> _tilePositions = new List<Vector3Int>();
+    public Dictionary<Vector3Int, GameObject> gameObjects = new Dictionary<Vector3Int, GameObject>();
+    [SerializeField] private List<GameObject> _gameObjects = new List<GameObject>();
+    [SerializeField] private List<Vector3Int> _gameObjectPositions = new List<Vector3Int>();
 
     public void RefreshTile(Vector3Int position, ITilemap tilemap)
     {
@@ -23,28 +25,36 @@ public class PrefabTilemap : MonoBehaviour, ISerializationCallbackReceiver
             
             if (prefabTile != null)
             {
-                if (!tileDictionary.ContainsKey(position))
+                if (!gameObjects.ContainsKey(position))
                 {
                     var instance = Instantiate(prefabTile.prefab,
                         parent: transform,
                         position: grid.CellToWorld(position) + new Vector3(.5f, 0f, .5f),
                         rotation: Quaternion.identity);
-                    tileDictionary.Add(position, instance);
-                    instance.GetComponent<Decode.Tile>().position = new Position(position.x, position.y);
+                    gameObjects.Add(position, instance);
+
+                    var pawn = instance.GetComponent<Pawn>();
+                    if (pawn != null)
+                        pawn.position = position;
+                    else
+                    {
+                        var tile = instance.GetComponent<Tile>();
+                        if (tile != null) tile.position = position;
+                    }
                 }
                 else
                 {
-                    tileDictionary[position].transform.position =
+                    gameObjects[position].transform.position =
                         grid.CellToWorld(position) + new Vector3(.5f, 0f, .5f);
                 }
             }
         }
         else
         {
-            if (tileDictionary.ContainsKey(position))
+            if (gameObjects.ContainsKey(position))
             {
-                DestroyImmediate(tileDictionary[position]);
-                tileDictionary.Remove(position);
+                DestroyImmediate(gameObjects[position]);
+                gameObjects.Remove(position);
             }
         }
     }
@@ -52,28 +62,29 @@ public class PrefabTilemap : MonoBehaviour, ISerializationCallbackReceiver
 
     public void DeletaTudo()
     {
-        foreach (var go in tileDictionary.Values)
+        foreach (var go in gameObjects.Values)
         {
-            DestroyImmediate(go);
+            if(go != null)
+                DestroyImmediate(go);
         }
-        tileDictionary.Clear();
-        _tiles.Clear();
-        _tilePositions.Clear();
+        gameObjects.Clear();
+        _gameObjects.Clear();
+        _gameObjectPositions.Clear();
     }
 
     public void OnBeforeSerialize()
     {
-        _tilePositions.Clear();
-        _tiles.Clear();
-        _tilePositions.AddRange(tileDictionary.Keys);
-        _tiles.AddRange(tileDictionary.Values);
+        _gameObjectPositions.Clear();
+        _gameObjects.Clear();
+        _gameObjectPositions.AddRange(gameObjects.Keys);
+        _gameObjects.AddRange(gameObjects.Values);
     }
 
     public void OnAfterDeserialize()
     {
-        for (int i = 0; i < _tiles.Count; i++)
+        for (int i = 0; i < _gameObjects.Count; i++)
         {
-            tileDictionary.Add(_tilePositions[i], _tiles[i]);
+            gameObjects.Add(_gameObjectPositions[i], _gameObjects[i]);
         }
     }
 }

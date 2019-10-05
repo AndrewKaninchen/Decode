@@ -10,7 +10,7 @@ namespace Decode
     public abstract class Pawn : MonoBehaviour
     {
         public int owner;
-        public Position position;
+        public Vector3Int position;
         
         public Direction Direction { get; private set; }
         
@@ -20,26 +20,23 @@ namespace Decode
             await transform.DORotate(90f * (int)direction * Vector3.up, .1f).IsComplete();
         }
         
-        public virtual async Task Move(Position targetPosition)
+        public virtual async Task Move(Vector3Int targetPosition)
         {
-            var board = GameController.Instance.board;
-            board.tiles[position].pawn = null;
-            await transform.DOMove(targetPosition.ToWorldSpace, .2f).IsComplete();
-            board.tiles[targetPosition].pawn = this;
+            var board = GameController.Instance.Board;
+            board.Tiles[position].pawn = null;
+            await transform.DOMove(GameController.Instance.Board.PositionToWorldSpace(targetPosition), .2f).IsComplete();
+            board.Tiles[targetPosition].pawn = this;
             this.position = targetPosition;
         }
         
-        public async Task Attack(Pawn target)//, Func<Task> effect)
+        public async Task Attack(Pawn target)
         {
             var originalPos = transform.position;
-            var atkPos = Vector3.Lerp(originalPos, target.position.ToWorldSpace, .5f);
+            var atkPos = Vector3.Lerp(originalPos, GameController.Instance.Board.PositionToWorldSpace(target.position), .5f);
             await transform.DOMove(atkPos, 0.1f).IsComplete();
             target.TakeDamage();
             await transform.DOMove(originalPos, .1f).IsComplete();
             Debug.Log($"{this.gameObject.name} attacks {target.gameObject.name}");
-            //await effect.Invoke();
-            //evento de ataque
-            //evento de ataque terminado?
         }
         
         public async Task TakeDamage()//, Func<Task> effect)
@@ -62,11 +59,11 @@ namespace Decode
             
         }
         
-        public virtual void Initialize(int owner)
+        public virtual void Initialize(GameController gameController, int owner)
         {
             this.owner = owner;
-            GameController.Instance.board.tiles[position].pawn = this;
-            transform.position = position.ToWorldSpace;
+            gameController.Board.Tiles[position].pawn = this;
+            transform.position = GameController.Instance.Board.PositionToWorldSpace(position);
         }
     }
 

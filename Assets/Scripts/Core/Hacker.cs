@@ -14,9 +14,9 @@ namespace Decode
 			GameController.Instance.GameOver();
 		}
 
-		public override async Task Move(Position targetPosition)
+		public override async Task Move(Vector3Int targetPosition)
 		{
-			var win = GameController.Instance.board.tiles[targetPosition].pawn is StageGoal;
+			var win = GameController.Instance.Board.Tiles[targetPosition].pawn is StageGoal;
 			await base.Move(targetPosition);
 			if (win)
 				GameController.Instance.StageClear();
