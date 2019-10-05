@@ -6,7 +6,7 @@ using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.Tilemaps;
  
-[CustomGridBrush(false, false, false, "Test Brush")]
+[CustomGridBrush(false, false, true, "Default Brush")]
 public class TestBrush : GridBrush
 {
     private Tilemap targetTilemap;
@@ -23,11 +23,6 @@ public class TestBrush : GridBrush
         if (targetTilemap == null) return;
 
         GridPaintingState.scenePaintTarget = targetTilemap.gameObject;
-//        
-//        var lastSelected = Selection.activeObject;
-//        Selection.activeObject = targetTilemap.gameObject;
-//        Selection.selectionChanged();
-//        Selection.activeObject = lastSelected;
     }
 
 //    public override void Paint(GridLayout gridLayout, GameObject brushTarget, Vector3Int position)

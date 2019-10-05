@@ -61,6 +61,13 @@
             <e p="EnemyPawn.cs" t="Include" />
             <e p="Goomba.cs" t="Include" />
           </e>
+          <e p="PrefabTile" t="Include">
+            <e p="Editor" t="Include">
+              <e p="PrefabTilemapEditor.cs" t="Include" />
+            </e>
+            <e p="PrefabTile.cs" t="Include" />
+            <e p="PrefabTilemap.cs" t="Include" />
+          </e>
         </e>
         <e p="TextMesh Pro" t="Include">
           <e p="Fonts" t="Include">
@@ -88,20 +95,6 @@
           </e>
           <e p="Sprites" t="Include">
             <e p="EmojiOne Attribution.txt" t="Include" />
-          </e>
-        </e>
-        <e p="Textus" t="Include">
-          <e p="TextusEngine" t="Include">
-            <e p="Core" t="Include">
-              <e p="RuntimTiledPrefab" t="Include">
-                <e p="Editor" t="Include">
-                  <e p="PrefabTilemapEditor.cs" t="Include" />
-                </e>
-                <e p="PrefabTile.cs" t="Include" />
-                <e p="PrefabTilemap.cs" t="Include" />
-                <e p="Readmy.txt" t="Include" />
-              </e>
-            </e>
           </e>
         </e>
       </e>
