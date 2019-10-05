@@ -22,9 +22,9 @@ namespace Decode
         
         public virtual async Task Move(Vector3Int targetPosition)
         {
-            var board = GameController.Instance.Board;
+            var board = GameController.Instance.board;
             board.Tiles[position].pawn = null;
-            await transform.DOMove(GameController.Instance.Board.PositionToWorldSpace(targetPosition), .2f).IsComplete();
+            await transform.DOMove(GameController.Instance.board.PositionToWorldSpace(targetPosition), .2f).IsComplete();
             board.Tiles[targetPosition].pawn = this;
             this.position = targetPosition;
         }
@@ -32,7 +32,7 @@ namespace Decode
         public async Task Attack(Pawn target)
         {
             var originalPos = transform.position;
-            var atkPos = Vector3.Lerp(originalPos, GameController.Instance.Board.PositionToWorldSpace(target.position), .5f);
+            var atkPos = Vector3.Lerp(originalPos, GameController.Instance.board.PositionToWorldSpace(target.position), .5f);
             await transform.DOMove(atkPos, 0.1f).IsComplete();
             target.TakeDamage();
             await transform.DOMove(originalPos, .1f).IsComplete();
@@ -49,7 +49,7 @@ namespace Decode
         public virtual async Task Die()
         {
             await transform.DOScale(0f, .05f).IsComplete();
-            GameController.Instance.Players[owner].Pawns.Remove(this);
+            GameController.Instance.players[owner].Pawns.Remove(this);
             Destroy(gameObject);
         }
 
@@ -62,8 +62,8 @@ namespace Decode
         public virtual void Initialize(GameController gameController, int owner)
         {
             this.owner = owner;
-            gameController.Board.Tiles[position].pawn = this;
-            transform.position = GameController.Instance.Board.PositionToWorldSpace(position);
+            gameController.board.Tiles[position].pawn = this;
+            transform.position = GameController.Instance.board.PositionToWorldSpace(position);
         }
     }
 

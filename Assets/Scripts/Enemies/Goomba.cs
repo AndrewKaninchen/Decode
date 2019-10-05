@@ -13,7 +13,7 @@ namespace Decode
 			var dir = Direction.AsVector();
 			
 			var pos = new Vector3Int(position.x + dir.x, position.y + dir.y, 0);
-			var board = GameController.Instance.Board; 
+			var board = GameController.Instance.board; 
 						
 			if (board.Tiles.ContainsKey(pos))
 			{

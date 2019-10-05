@@ -18,7 +18,7 @@ public class Cursor : MonoBehaviour
 
     private async void Update()
     {
-        if (!GameController.Instance.HasStarted || GameController.Instance.HasEnded)
+        if (!GameController.Instance.hasStarted || GameController.Instance.hasEnded)
             return;
         
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -43,8 +43,8 @@ public class Cursor : MonoBehaviour
                     if (Input.GetMouseButtonDown(0))
                     {
                         await hacker.Move(hoveredTile.position);
-                        var p = GameController.Instance.Players[1] as HumanPlayer;
-                        p.EndTurn();
+                        var p = FindObjectOfType<HumanPlayer>();
+                        if (p != null) p.EndTurn();
                     }
                     else
                     {
@@ -54,8 +54,12 @@ public class Cursor : MonoBehaviour
             }
             else if (pawn)
             {
-                if(Input.GetMouseButtonDown(0))
-                    hacker.Attack(pawn);
+                if (Input.GetMouseButtonDown(0))
+                {
+                    await hacker.Attack(pawn);
+                    var p = FindObjectOfType<HumanPlayer>();
+                    if (p != null) p.EndTurn();
+                }
             }
         }
         

@@ -22,7 +22,7 @@ namespace Decode
         }
         private void SnapPawnsFromWorldSpaceToGridSpace()
         {
-            foreach (var player in gameController.Players)
+            foreach (var player in gameController.players)
             {
                 foreach (var pawn in player.Pawns)
                 {
