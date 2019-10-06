@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Decode;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -20,9 +21,30 @@ public class Cursor : MonoBehaviour
     {
         if (!GameController.Instance.hasStarted || GameController.Instance.hasEnded)
             return;
+
+        (int x, int y) input;
+        input.x = (Input.GetKeyDown(KeyCode.D) ? 1 : 0) + (Input.GetKeyDown(KeyCode.A) ? -1 : 0);
+        input.y = (Input.GetKeyDown(KeyCode.W) ? 1 : 0) + (Input.GetKeyDown(KeyCode.S) ? -1 : 0);
+        
+        if (input.x != 0 || input.y != 0)
+        {
+            if (input.x != 0)
+            {
+                var targetPosition = hacker.position + new Vector3Int(input.x, 0, 0);
+                await MoveOrAttack(targetPosition);
+            }
+            else
+            {
+                var targetPosition = hacker.position + new Vector3Int(0, input.y, 0);
+                await MoveOrAttack(targetPosition);
+            }
+
+            return;
+        }
         
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         Tile hoveredTile = null;
+        
         if (Physics.Raycast(ray, out var hit))
         {
             var hitObject = hit.collider.gameObject;
@@ -42,9 +64,7 @@ public class Cursor : MonoBehaviour
                 {
                     if (Input.GetMouseButtonDown(0))
                     {
-                        await hacker.Move(hoveredTile.position);
-                        var p = FindObjectOfType<HumanPlayer>();
-                        if (p != null) p.EndTurn();
+                        await Move(hoveredTile.position);
                     }
                     else
                     {
@@ -56,13 +76,35 @@ public class Cursor : MonoBehaviour
             {
                 if (Input.GetMouseButtonDown(0))
                 {
-                    await hacker.Attack(pawn);
-                    var p = FindObjectOfType<HumanPlayer>();
-                    if (p != null) p.EndTurn();
+                    await Attack(pawn);
                 }
             }
         }
-        
-        
+    }
+
+    private async Task MoveOrAttack(Vector3Int position)
+    {
+        if (GameController.Instance.board.Tiles.ContainsKey(position))
+        {
+            var targetTile = GameController.Instance.board.Tiles[position];
+            if (targetTile.pawn is EnemyPawn)
+                await Attack(targetTile.pawn);
+            else 
+                await Move(position);
+        }
+    }
+    
+    private async Task Move(Vector3Int position)
+    {
+        await hacker.Move(position);
+        var p = FindObjectOfType<HumanPlayer>();
+        if (p != null) p.EndTurn();
+    }
+    
+    private async Task Attack(Pawn pawn)
+    {
+        await hacker.Attack(pawn);
+        var p = FindObjectOfType<HumanPlayer>();
+        if (p != null) p.EndTurn();
     }
 }

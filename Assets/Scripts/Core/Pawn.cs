@@ -49,6 +49,7 @@ namespace Decode
         public virtual async Task Die()
         {
             await transform.DOScale(0f, .05f).IsComplete();
+            GameController.Instance.board.Tiles[position].pawn = null;
             GameController.Instance.players[owner].Pawns.Remove(this);
             Destroy(gameObject);
         }

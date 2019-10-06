@@ -18,7 +18,7 @@ public class DefaultBrush : GridBrush
         if (prefabTile == null) return;
             
         var tilemapName = prefabTile.tilemapName;
-        var tilemaps = GameObject.FindObjectsOfType<Tilemap>().ToList();
+        var tilemaps = FindObjectsOfType<Tilemap>().ToList();
         targetTilemap = tilemaps.Find(tilemap => tilemap.name.Equals(tilemapName));
         if (targetTilemap == null) return;
 
