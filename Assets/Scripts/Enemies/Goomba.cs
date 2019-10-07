@@ -28,6 +28,10 @@ namespace Decode
 				{
 					await Move(pos);
 				}
+				else
+				{
+					await ChangeDirection((Direction)(((int)Direction + 2) % 4));
+				}
 			}
 			else
 			{

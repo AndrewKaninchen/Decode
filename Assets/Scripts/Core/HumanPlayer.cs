@@ -34,7 +34,7 @@ namespace Decode
             if (!GameController.Instance.hasStarted || GameController.Instance.hasEnded || !takingInput)
                 return;
 
-            if (await CheckKeyboardInput());
+            if (await CheckKeyboardInput()){}
             else await CheckMouseInput();
         }
 

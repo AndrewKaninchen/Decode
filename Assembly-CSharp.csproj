@@ -68,7 +68,6 @@
      <Compile Include="Assets\Scripts\Core\SimpleEnemy.cs" />
      <Compile Include="Assets\Scripts\Core\StageGoal.cs" />
      <Compile Include="Assets\Scripts\Core\Tile.cs" />
-     <Compile Include="Assets\Scripts\Cursor.cs" />
      <Compile Include="Assets\Scripts\Enemies\EnemyPawn.cs" />
      <Compile Include="Assets\Scripts\Enemies\Goomba.cs" />
      <Compile Include="Assets\Scripts\PrefabTile\PrefabTile.cs" />

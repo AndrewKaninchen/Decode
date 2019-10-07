@@ -37,8 +37,8 @@ namespace Decode
             Instance = this;
             Run();
         }
-        
-        public async void Run()
+
+        private async void Run()
         {
             Initialize();
 
@@ -56,7 +56,7 @@ namespace Decode
         {
             board.Initialize();
             print("Game Started!");
-            for (int i = 0; i < players.Count; i++)
+            for (var i = 0; i < players.Count; i++)
             {
                 foreach (var pawn in players[i].Pawns)
                     pawn.Initialize(this, i);
@@ -93,7 +93,7 @@ namespace Decode
             }
         }
 
-        public async Task Turn(Player player)
+        private async Task Turn(Player player)
         {
             print($"Player {players.FindIndex((x)=> x == player)} Turn");
             await player.Play();
