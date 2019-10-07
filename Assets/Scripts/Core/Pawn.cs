@@ -34,8 +34,7 @@ namespace Decode
             var originalPos = transform.position;
             var atkPos = Vector3.Lerp(originalPos, GameController.Instance.board.PositionToWorldSpace(target.position), .5f);
             await transform.DOMove(atkPos, 0.1f).IsComplete();
-            target.TakeDamage();
-            await transform.DOMove(originalPos, .1f).IsComplete();
+            await Task.WhenAll(target.TakeDamage(), transform.DOMove(originalPos, .1f).IsComplete());
             Debug.Log($"{this.gameObject.name} attacks {target.gameObject.name}");
         }
         
