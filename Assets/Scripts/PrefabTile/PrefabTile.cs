@@ -18,6 +18,7 @@ public class PrefabTile : TileBase
 
         var prefabTilemap = tilemap.GetComponent<PrefabTilemap>();
         if (prefabTilemap != null) prefabTilemap.RefreshTile(position, tilemap);
+        
     }
 
     public override bool StartUp(Vector3Int position, ITilemap tilemap, GameObject go)

@@ -10,6 +10,7 @@ using UnityEngine.Tilemaps;
 public class DefaultBrush : GridBrush
 {
     private Tilemap targetTilemap;
+    private PrefabTilemap targetPrefabTilemap;
 
     public override void Pick(GridLayout gridLayout, GameObject brushTarget, BoundsInt position, Vector3Int pickStart)
     {
@@ -25,14 +26,19 @@ public class DefaultBrush : GridBrush
         GridPaintingState.scenePaintTarget = targetTilemap.gameObject;
     }
 
-//    public override void Paint(GridLayout gridLayout, GameObject brushTarget, Vector3Int position)
-//    {
-//        if (brushTarget != null)
-//        {
-//            Undo.RegisterCompleteObjectUndo(this.targetTilemap, string.Empty);
-//            base.Paint(gridLayout, brushTarget, position);
-//        }
-//    }
+    public override void Paint(GridLayout gridLayout, GameObject brushTarget, Vector3Int position)
+    {
+        if (brushTarget != null)
+        {
+            Undo.IncrementCurrentGroup();
+            Undo.SetCurrentGroupName("AaAAaA");
+            var g = Undo.GetCurrentGroup();
+            Undo.RegisterCompleteObjectUndo(this.targetTilemap, string.Empty);
+            base.Paint(gridLayout, brushTarget, position);
+            targetTilemap.RefreshTile(position);
+            Undo.CollapseUndoOperations(g);
+        }
+    }
 //
 //    public override void BoxFill(GridLayout gridLayout, GameObject brushTarget, BoundsInt position)
 //    {

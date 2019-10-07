@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using Decode;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
@@ -27,11 +28,13 @@ public class PrefabTilemap : MonoBehaviour, ISerializationCallbackReceiver
             {
                 if (!gameObjects.ContainsKey(position))
                 {
+                    Undo.RecordObject(this, string.Empty);
                     var instance = Instantiate(prefabTile.prefab,
                         parent: transform,
                         position: grid.CellToWorld(position) + new Vector3(.5f, 0f, .5f),
                         rotation: Quaternion.identity);
                     gameObjects.Add(position, instance);
+                    Undo.RegisterCreatedObjectUndo(instance, string.Empty);
 
                     var pawn = instance.GetComponent<Pawn>();
                     if (pawn != null)
