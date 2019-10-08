@@ -1,9 +1,9 @@
 # Jetbrain Rider Cache
-/.idea/
-/Assets/Plugins/Editor/JetBrains*
+.idea/
+Assets/Plugins/Editor/JetBrains*
 
 # Visual Studio Code
-/.vscode/
+.vscode/
 
 ### Unity ###
 [Ll]ibrary/
