@@ -2,23 +2,20 @@
 
  using UnityEditor;
  using UnityEngine;
- using UnityEngine.Serialization;
  using UnityEngine.Tilemaps;
 
 [CreateAssetMenu(menuName = "TiledPrefab" ,fileName = "TiledPrefab", order = 360)]
 public class PrefabTile : TileBase
 {
-    [FormerlySerializedAs("Prefab")]public GameObject prefab;
-    [FormerlySerializedAs("TilemapName")] public string tilemapName;
+    public GameObject prefab;
+    public string tilemapName;
 //    public Vector3 PrefabOffset = new Vector3(0.5f,0.5f,0);
 
     public override void RefreshTile(Vector3Int position, ITilemap tilemap)
     {
         base.RefreshTile(position, tilemap);
-
         var prefabTilemap = tilemap.GetComponent<PrefabTilemap>();
-        if (prefabTilemap != null) prefabTilemap.RefreshTile(position, tilemap);
-        
+        if (prefabTilemap != null) prefabTilemap.RefreshTile(position);
     }
 
     public override bool StartUp(Vector3Int position, ITilemap tilemap, GameObject go)
@@ -28,6 +25,8 @@ public class PrefabTile : TileBase
   
     public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData)
     {
+        base.GetTileData(position, tilemap, ref tileData);
+        tileData.flags = TileFlags.None;
         var previewTexture = AssetPreview.GetAssetPreview(prefab);
         
         if (tileData.sprite == null && previewTexture != null)
@@ -36,9 +35,9 @@ public class PrefabTile : TileBase
                 previewTexture,
                 new Rect(
                     Vector2.zero,
-                    .95f * previewTexture.height * Vector2.one),
+                    previewTexture.height * Vector2.one),
                 Vector2.one * .5f,
-                previewTexture.width);
+                previewTexture.height * 6.5f);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Decode
         public int owner;
         public Vector3Int position;
         
-        public Direction Direction { get; private set; }
+        public Direction Direction { get; set; }
         
         public async Task ChangeDirection(Direction direction)
         {
