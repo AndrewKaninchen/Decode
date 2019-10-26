@@ -11,13 +11,22 @@ namespace Decode
     {
         public int owner;
         public Vector3Int position;
-        
-        public Direction Direction { get; set; }
-        
+        [SerializeField] private Direction direction;
+
+        public Direction Direction
+        {
+            get => direction;
+            set
+            {
+                direction = value;
+                transform.rotation = Quaternion.Euler(0f, 90f*(int)direction, 0f);
+            }
+        }
+
         public async Task ChangeDirection(Direction direction)
         {
-            Direction = direction;
             await transform.DORotate(90f * (int)direction * Vector3.up, .1f).IsComplete();
+            Direction = direction;
         }
         
         public virtual async Task Move(Vector3Int targetPosition)
@@ -84,13 +93,13 @@ namespace Decode
                     dir = (1, 0);
                     break;
                 case Direction.South:
-                    dir = (0, 1);
+                    dir = (0, -1);
                     break;
                 case Direction.West:
                     dir = (-1, 0);
                     break;
                 case Direction.North:
-                    dir = (0, -1);
+                    dir = (0, 1);
                     break;
                 default:
                     dir = (0, 0);

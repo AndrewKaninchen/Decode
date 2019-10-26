@@ -13,13 +13,15 @@ public class DefaultBrush : GridBrush
 {
     private Tilemap targetTilemap;
     private PrefabTilemap targetPrefabTilemap;
+    public Decode.Direction tileDirection = Direction.East;
 
+    
     public override void Pick(GridLayout gridLayout, GameObject brushTarget, BoundsInt position, Vector3Int pickStart)
     {
         base.Pick(gridLayout, brushTarget, position, pickStart);
         SelectRelevantPrefabTilemap();
     }
-
+    
     private void SelectRelevantPrefabTilemap()
     {
         var prefabTile = cells[0].tile as PrefabTile;
@@ -29,10 +31,16 @@ public class DefaultBrush : GridBrush
         var tilemaps = FindObjectsOfType<Tilemap>().ToList();
         targetTilemap = tilemaps.Find(tilemap => tilemap.name.Equals(tilemapName));
         if (targetTilemap == null) return;
-
+        targetPrefabTilemap = targetTilemap.GetComponent<PrefabTilemap>();
         GridPaintingState.scenePaintTarget = targetTilemap.gameObject;
     }
-    
+
+    public override void Rotate(RotationDirection direction, GridLayout.CellLayout layout)
+    {
+        tileDirection = (Direction)(((int)tileDirection + ((direction == RotationDirection.Clockwise) ? 1 : 3)) % 4);
+        Debug.Log("girando girando girando pro lado");
+    }
+
 
     public override void Paint(GridLayout gridLayout, GameObject brushTarget, Vector3Int position)
     {
@@ -40,6 +48,10 @@ public class DefaultBrush : GridBrush
         {
             base.Paint(gridLayout, brushTarget, position);
             if (targetTilemap != null) targetTilemap.RefreshTile(position);
+            
+            if (targetPrefabTilemap == null) return;
+            var pawn = targetPrefabTilemap.gameObjects[position].GetComponent<Pawn>();
+            if (pawn != null) pawn.Direction = tileDirection;
         }
     }
 
