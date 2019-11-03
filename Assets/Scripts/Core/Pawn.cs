@@ -81,35 +81,4 @@ namespace Decode
         East, South, West, North
         
     }
-    
-    public static class Extensions
-    {
-        public static (int x, int y) AsVector(this Direction direction)
-        {
-            (int x, int y) dir;
-            switch (direction)
-            {
-                case Direction.East:
-                    dir = (1, 0);
-                    break;
-                case Direction.South:
-                    dir = (0, -1);
-                    break;
-                case Direction.West:
-                    dir = (-1, 0);
-                    break;
-                case Direction.North:
-                    dir = (0, 1);
-                    break;
-                default:
-                    dir = (0, 0);
-                    break;
-            }
-
-            return dir;
-        }
-    }
-    
-    
-    
 }

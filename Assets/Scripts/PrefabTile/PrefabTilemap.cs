@@ -92,10 +92,13 @@ public class PrefabTilemap : MonoBehaviour, ISerializationCallbackReceiver
 
     private void CreateGameObjectFromPrefab(Vector3Int position, PrefabTile prefabTile)
     {
-        var instance = Instantiate(prefabTile.prefab,
-            parent: transform,
-            position: grid.CellToWorld(position) + new Vector3(.5f, 0f, .5f),
-            rotation: Quaternion.identity);
+        var instance = PrefabUtility.InstantiatePrefab(prefabTile.prefab,
+            parent: transform) as GameObject;
+
+        if (instance == null) return;
+
+        instance.transform.position = grid.CellToWorld(position) + new Vector3(.5f, 0f, .5f);
+        instance.transform.rotation = Quaternion.identity;
         gameObjects.Add(position, instance);
 
         var pawn = instance.GetComponent<Pawn>();

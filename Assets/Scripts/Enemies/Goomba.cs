@@ -10,7 +10,7 @@ namespace Decode
 	{
 		public override async Task Act()
 		{
-			var dir = Direction.AsVector();
+			var dir = Direction.AsVector3Int();
 			
 			var pos = new Vector3Int(position.x + dir.x, position.y + dir.y, 0);
 			var board = GameController.Instance.board; 
